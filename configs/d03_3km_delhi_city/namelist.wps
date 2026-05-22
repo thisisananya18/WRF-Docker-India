@@ -1,0 +1,32 @@
+&share
+ wrf_core = 'ARW',
+ max_dom = 1,
+ start_date = '2019-09-04_00:00:00',
+ end_date   = '2019-09-04_06:00:00',
+ interval_seconds = 21600
+/
+&geogrid
+ parent_id         = 1,
+ parent_grid_ratio = 1,
+ i_parent_start    = 1,
+ j_parent_start    = 1,
+ e_we              = 60,
+ e_sn              = 60,
+ geog_data_res     = 'lowres',
+ dx = 3000,
+ dy = 3000,
+ map_proj = 'lambert',
+ ref_lat   = 28.6,
+ ref_lon   = 77.2,
+ truelat1  = 20.0,
+ truelat2  = 40.0,
+ stand_lon = 77.2,
+ geog_data_path = '/home/ananya/WRF_PROJECTS/DATA/geog/WPS_GEOG_LOW_RES/'
+/
+&ungrib
+ out_format = 'WPS',
+ prefix = 'FILE',
+/
+&metgrid
+ fg_name = 'FILE'
+/
