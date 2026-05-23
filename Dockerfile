@@ -45,12 +45,6 @@ WORKDIR /wrf
 COPY WRF/ /wrf/WRF/
 COPY WPS/ /wrf/WPS/
 
-# Copy geographic data
-COPY DATA/geog/WPS_GEOG_LOW_RES/ /wrf/WPS_GEOG/
-
-# Copy all 4 domain configs
-COPY runs/ /wrf/runs/
-
 ENV PATH=$PATH:/wrf/WRF/main:/wrf/WPS
 
 CMD ["/bin/bash"]
