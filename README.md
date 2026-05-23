@@ -1,6 +1,6 @@
 # WRF India Downscaling - Setup & Dockerization
 ### SRIP 2026 Internship Progress Report
-**By:** Ananya | **Docker Hub:** [ananyahere/wrf-india:v1](https://hub.docker.com/r/ananyahere/wrf-india)
+**By:** Ananya | **Docker Hub:** [ananyahere/wrf-india:v2](https://hub.docker.com/r/ananyahere/wrf-india)
 
 ---
 
@@ -169,8 +169,6 @@ WORKDIR /wrf
 
 COPY WRF/ /wrf/WRF/
 COPY WPS/ /wrf/WPS/
-COPY DATA/geog/WPS_GEOG_LOW_RES/ /wrf/WPS_GEOG/
-COPY runs/ /wrf/runs/
 
 ENV PATH=$PATH:/wrf/WRF/main:/wrf/WPS
 CMD ["/bin/bash"]
@@ -178,52 +176,55 @@ CMD ["/bin/bash"]
 
 ### Build Command
 ```bash
-docker build -t ananyahere/wrf-india:v1 .
+docker build -t ananyahere/wrf-india:v2 .
 ```
 
 ### Build Result
 ```
 [14/14] FINISHED
- Successfully built and tagged ananyahere/wrf-india:v1
-Image size: 4.37GB
+Successfully built and tagged ananyahere/wrf-india:v2
+Image size: 2.62GB (dependencies only, no configs)
 ```
 
 ### Verified Contents Inside Container
 ```bash
-$ docker run -it ananyahere/wrf-india:v1 /bin/bash
+$ docker run -it ananyahere/wrf-india:v2 /bin/bash
 root@container:/wrf# ls /wrf/
-WPS  WPS_GEOG  WRF  runs
+WPS  WPS_GEOG  WRF
 
 root@container:/wrf# ls /wrf/WRF/main/wrf.exe
 /wrf/WRF/main/wrf.exe  
 
 root@container:/wrf# ls /wrf/WPS/geogrid.exe
-/wrf/WPS/geogrid.exe   
-
-root@container:/wrf# ls /wrf/runs/
-d01_27km  d02_9km_delhi  d03_3km_delhi_city  d04_3km_mumbai  
+/wrf/WPS/geogrid.exe    
 ```
 
 ### Pushed to Docker Hub
 ```bash
-docker push ananyahere/wrf-india:v1
+docker push ananyahere/wrf-india:v2
 ```
 ```
-v1: digest: sha256:9bcc20f894107c277349e18b7cf1d7f02edab8825ce5eaa5837ff43e347d9e77
- Available at: https://hub.docker.com/r/ananyahere/wrf-india
+v2: digest: sha256:43284639079fb5d6c3030faf8c34431ca0a7fe2d9257a03ac357825eca96ee1d
+Available at: https://hub.docker.com/r/ananyahere/wrf-india
 ```
 
 ### How to Use This Container
+
+**Pull the image (v2 - dependencies only):**
 ```bash
-# Pull the image
-docker pull ananyahere/wrf-india:v1
-
-# Run interactively
-docker run -it ananyahere/wrf-india:v1
-
-# Run geogrid inside container
-docker run -it ananyahere/wrf-india:v1 /wrf/WPS/geogrid.exe
+docker pull ananyahere/wrf-india:v2
 ```
+
+**Run with your own configs:**
+```bash
+docker run -it \
+  -v /path/to/namelist.wps:/wrf/WPS/namelist.wps \
+  -v /path/to/namelist.input:/wrf/WRF/namelist.input \
+  -v /path/to/WPS_GEOG:/wrf/WPS_GEOG \
+  ananyahere/wrf-india:v2
+```
+
+**Sample configs available in `/configs` folder of this repo.**
 
 ---
 
