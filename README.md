@@ -246,8 +246,27 @@ docker run -it \
 | Full WRF Simulation Run |  Pending HPC Access |
 | AI Downscaling Model |  Upcoming |
 
+
 ---
 
+## Web UI — Domain Config Generator
+
+A simple browser-based UI to generate `namelist.wps` files and get the exact Docker run command for your domain.
+
+**Open:** [`wrf_runner_ui.html`](./wrf_runner_ui.html) in any browser — no server needed.
+
+**Features:**
+- Load example India domain presets (All India 27km, Delhi 9km, Delhi 3km, Mumbai 3km)
+- Enter any custom lat/lon, resolution, grid size, date, and time
+- Generates `namelist.wps` automatically
+- Shows the exact `docker run` command with volume mounts
+- All fields are editable — not locked to India configs
+
+**How to use:**
+1. Download or clone this repo
+2. Open `wrf_runner_ui.html` in your browser
+3. Fill in your domain settings
+4. Click Generate — copy the Docker command shown
 
 ---
 
